@@ -8,9 +8,6 @@ import * as Location from 'expo-location';
 //Composant pour déclencher la demande de permission
 import * as Permissions from 'expo-permissions';
 
-//Import de redux
-import {connect} from 'react-redux';
-
 function MapScreen(props) {
 
   const [ currentLatitude, setCurrentLatitude ] = useState(0);
@@ -67,7 +64,7 @@ function MapScreen(props) {
             isVisible={isVisible}
             onBackdropPress={() => {setIsVisible(false)}}
           >
-
+              <View>
               <Input
                 containerStyle={{width: 200, marginBottom: 30}}
                 placeholder='Title'
@@ -84,6 +81,7 @@ function MapScreen(props) {
                 title='Add POI' 
                 onPress={() =>handleSubmit()}
               />
+              </View>
 
           </Overlay>
 
@@ -135,15 +133,4 @@ const styles = StyleSheet.create({
     }
   });
 
-
-function mapStateToProps(state) {
-  return {
-    pseudo: state.pseudo
-  }
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(MapScreen);
-    
+export default MapScreen;

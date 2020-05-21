@@ -8,26 +8,42 @@ import socketIOClient from "socket.io-client";
 
 var socket = socketIOClient("http://192.168.1.16:3000");
 
-export default function ChatScreen() {
+//Import de redux
+import {connect} from 'react-redux';
+
+function ChatScreen(props) {
 
   const [ currentMessage, setCurrentMessage ] = useState('');
   const [ listMessage, setListMessage ] = useState([]);
 
   useEffect(() => { 
     
-    socket.on('sendMessageToAll', (newMessage)=> {
-      setListMessage([...listMessage, newMessage]);
+    socket.on('sendMessageToAll', (newMessageData)=> {
+      setListMessage([...listMessage, newMessageData]);
     });
     
   }, [listMessage]); 
 
-  console.log(listMessage)
+  let messageItem = listMessage.map((messageData, i) => {
 
-  let messageItem = listMessage.map((message, i) => {
-    return <ListItem title={message} />
+    //Mise en place des emojis :
+    let msg = messageData.message.replace(/:\)/g, '\u263A');
+    msg = msg.replace(/:\(/g, '\u2639');
+    msg = msg.replace(/:\p/g, '\uD83D\uDE1B');
+    msg = msg.replace(/<3/g, '\u2764');
+    msg = msg.replace(/></g, '\uD83D\uDE11');
+    msg = msg.replace(/:0/g, '\uD83D\uDE2E');
+    msg = msg.replace(/:.\(/g, '\uD83D\uDE22');
+    msg = msg.replace(/[a-z]*fuck[a-z]*/gi, '\u2022\u2022\u2022\u2022');
+    msg = msg.replace(/[a-z]*salope[a-z]*/gi, '\u2022\u2022\u2022\u2022\u2022\u2022');
+    msg = msg.replace(/[a-z]*pute[a-z]*/gi, '\u2022\u2022\u2022\u2022');
+    msg = msg.replace(/[a-z]*bitch[a-z]*/gi, '\u2022\u2022\u2022\u2022\u2022');
+
+    return <ListItem 
+              key={i}
+              title={msg}
+              subtitle={messageData.pseudo} />
   });
-
-  console.log(messageItem)
   
     return (
       <View style={styles.container}>
@@ -56,7 +72,7 @@ export default function ChatScreen() {
                title="Send"
                buttonStyle={styles.button}
                type="solid"
-               onPress={() => {socket.emit('sendMessage', currentMessage);
+               onPress={() => {socket.emit('sendMessage', {message: currentMessage, pseudo:props.pseudo});
                setCurrentMessage('')}}
            />
        </KeyboardAvoidingView>
@@ -81,3 +97,16 @@ const styles = StyleSheet.create({
       backgroundColor: "#eb4d4b"
     }
   });
+
+
+function mapStateToProps(state) {
+  return {
+    pseudo: state.pseudo
+  }
+};
+  
+export default connect(
+  mapStateToProps,
+  null
+)(ChatScreen);
+      
