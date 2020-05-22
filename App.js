@@ -1,8 +1,11 @@
+console.disableYellowBox = true;
+
 import React from 'react';
 //Import des composants
 import HomeScreen from './Screens/HomeScreen';
 import MapScreen from './Screens/MapScreen';
 import ChatScreen from './Screens/ChatScreen';
+/* import POIScreen from './Screens/POIScreen'; */
 //Import des modules de navigation & icônes
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -20,6 +23,7 @@ const store = createStore(combineReducers({pseudo}));
 //Menu bottom
 const BottomNavigator = createBottomTabNavigator({
   Map: MapScreen,
+  /* POI: POIScreen, */
   Chat: ChatScreen
  },
  {
@@ -30,6 +34,8 @@ const BottomNavigator = createBottomTabNavigator({
         case 'Map' :
             iconName = 'ios-navigate'; //Icône map
             break;
+        /* case 'POI' :
+            iconName = 'ios-bowtie'; //Icône POI */
         case 'Chat' :
             iconName = 'ios-chatboxes'; //Icône chat
             break;

@@ -16,39 +16,35 @@ function ChatScreen(props) {
   const [ currentMessage, setCurrentMessage ] = useState('');
   const [ listMessage, setListMessage ] = useState([]);
 
-  useEffect(() => { 
-    
-    socket.on('sendMessageToAll', (newMessageData)=> {
-      setListMessage([...listMessage, newMessageData]);
-    });
-    
-  }, [listMessage]); 
+  socket.on('sendMessageToAll', (newMessageData) => { 
+    setListMessage([...listMessage, newMessageData]);
+  });
 
   let messageItem = listMessage.map((messageData, i) => {
 
     //Mise en place des emojis :
-    let msg = messageData.message.replace(/:\)/g, '\u263A');
-    msg = msg.replace(/:\(/g, '\u2639');
-    msg = msg.replace(/:\p/g, '\uD83D\uDE1B');
-    msg = msg.replace(/<3/g, '\u2764');
-    msg = msg.replace(/></g, '\uD83D\uDE11');
-    msg = msg.replace(/:0/g, '\uD83D\uDE2E');
-    msg = msg.replace(/:.\(/g, '\uD83D\uDE22');
-    msg = msg.replace(/[a-z]*fuck[a-z]*/gi, '\u2022\u2022\u2022\u2022');
-    msg = msg.replace(/[a-z]*salope[a-z]*/gi, '\u2022\u2022\u2022\u2022\u2022\u2022');
-    msg = msg.replace(/[a-z]*pute[a-z]*/gi, '\u2022\u2022\u2022\u2022');
-    msg = msg.replace(/[a-z]*bitch[a-z]*/gi, '\u2022\u2022\u2022\u2022\u2022');
+    let msgTransform = messageData.message.replace(/:\)/g, '\u263A');
+    msgTransform = msgTransform.replace(/:\(/g, '\u2639');
+    msgTransform = msgTransform.replace(/:\p/g, '\uD83D\uDE1B');
+    msgTransform = msgTransform.replace(/<3/g, '\u2764');
+    msgTransform = msgTransform.replace(/></g, '\uD83D\uDE11');
+    msgTransform = msgTransform.replace(/:0/g, '\uD83D\uDE2E');
+    msgTransform = msgTransform.replace(/:.\(/g, '\uD83D\uDE22');
+    msgTransform = msgTransform.replace(/[a-z]*fuck[a-z]*/gi, '\u2022\u2022\u2022\u2022');
+    msgTransform = msgTransform.replace(/[a-z]*salope[a-z]*/gi, '\u2022\u2022\u2022\u2022\u2022\u2022');
+    msgTransform = msgTransform.replace(/[a-z]*pute[a-z]*/gi, '\u2022\u2022\u2022\u2022');
+    msgTransform = msgTransform.replace(/[a-z]*bitch[a-z]*/gi, '\u2022\u2022\u2022\u2022\u2022');
 
     return <ListItem 
               key={i}
-              title={msg}
+              title={msgTransform}
               subtitle={messageData.pseudo} />
   });
   
     return (
       <View style={styles.container}>
         
-       <ScrollView  style={styles.ScrollView}>
+       <ScrollView style={styles.ScrollView}>
          
          {messageItem}
 
