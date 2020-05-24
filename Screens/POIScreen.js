@@ -41,7 +41,6 @@ function POIScreen(props) {
                             subtitle={POI.description}
                             rightIcon={
                                 <Icon
-                                    type='font-awesome'
                                     name='trash'
                                     size={24}
                                     color='#EA4E52'
