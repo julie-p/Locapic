@@ -22,7 +22,8 @@ const store = createStore(combineReducers({pseudo, POIList}));
 
 //Mise en place de la nav
 //Menu bottom
-const BottomNavigator = createBottomTabNavigator({
+const BottomNavigator = createBottomTabNavigator(
+  {
   Map: MapScreen,
   POI: POIScreen, 
   Chat: ChatScreen
@@ -36,7 +37,7 @@ const BottomNavigator = createBottomTabNavigator({
             iconName = 'ios-navigate'; //Icône map
             break;
         case 'POI' :
-            iconName = 'ios-bowtie'; //Icône POI 
+            iconName = 'ios-chatboxes'; //Icône POI 
         case 'Chat' :
             iconName = 'ios-chatboxes'; //Icône chat
             break;
