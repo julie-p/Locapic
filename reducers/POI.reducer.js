@@ -14,4 +14,4 @@ export default function (POIList= [], action) {
         default :
             return POIList;
     }
-}
+};

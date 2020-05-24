@@ -33,8 +33,9 @@ function MapScreen(props) {
 
     //Récupération de la liste des POI :
     AsyncStorage.getItem('POIList', (error, data) => {
-      if (data) {
-        setListPOI(JSON.parse(data));
+      switch (data) {
+        case (data) :
+          setListPOI(JSON.parse(data));
       }
     });
 
@@ -187,7 +188,7 @@ function mapDispatchToProps(dispatch) {
       dispatch( { type: 'savePOI', POI: POI} )
     }
   }
-}
+};
     
 export default connect(
   mapStateToProps,

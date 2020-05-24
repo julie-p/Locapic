@@ -13,10 +13,11 @@ function POIScreen(props) {
 
     useEffect(() => {
         AsyncStorage.getItem("POIList", (error, data) => {
-            if (data) {
-                setListPOI(JSON.parse(data));
+            switch (data) {
+                case (data) :
+                    setListPOI(JSON.parse(data));
             }
-        })
+        });
     }, []);
 
     const handleDelete = () => {
@@ -26,7 +27,6 @@ function POIScreen(props) {
         copyListPOI = copyListPOI.filter((e) => {e.title !== POI.title});
         AsyncStorage.setItem("POIList", JSON.stringify(copyListPOI));
         setListPOI(copyListPOI);
-
     };
 
     return (
