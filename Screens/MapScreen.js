@@ -31,6 +31,13 @@ function MapScreen(props) {
 
   useEffect(() => {
 
+    //Récupération de la liste des POI :
+    AsyncStorage.getItem('POIList', (error, data) => {
+      if (data) {
+        setListPOI(JSON.parse(data));
+      }
+    });
+
     async function askPermissions() {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status === 'granted') {
@@ -43,15 +50,6 @@ function MapScreen(props) {
       }
     };
     askPermissions();
-
-    //Récupération de la liste des POI :
-    AsyncStorage.getItem('POI', (error, data) => {
-      switch (data) {
-      case (data) :
-        let POI = JSON.parse(data);
-        setListPOI(POI);
-      }
-    });
 
   }, []);
 
@@ -77,25 +75,11 @@ function MapScreen(props) {
   //Enregistrement des POI :
   const handleSubmit = () => {
   
-    let copyListPOI = (
-      [...listPOI, 
-        {
-          latitude: tempPOI.latitude, 
-          longitude: tempPOI.longitude, 
-          title: titlePOI, 
-          description: descriptionPOI
-        }
-      ]
-      );
-
-    AsyncStorage.setItem('POI', JSON.stringify(copyListPOI));
-
-    setIsVisible(false);
+    let copyListPOI = [...listPOI, {latitude: tempPOI.latitude, longitude: tempPOI.longitude, title: titlePOI, description: descriptionPOI}]
+    AsyncStorage.setItem("POIList", JSON.stringify(copyListPOI));
     setListPOI(copyListPOI);
-    setTitlePOI();
-    setDescriptionPOI();
-    setTempPOI();
-    
+
+    setIsVisible(false); 
   };
 
   const markerPOI = listPOI.map((POI, i) => {
@@ -193,11 +177,19 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    pseudo: state.pseudo
+    pseudo: state.pseudo, POIList: state.POIList
   }
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    savePOI : function(POI) {
+      dispatch( { type: 'savePOI', POI: POI} )
+    }
+  }
+}
     
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(MapScreen);

@@ -5,7 +5,7 @@ import React from 'react';
 import HomeScreen from './Screens/HomeScreen';
 import MapScreen from './Screens/MapScreen';
 import ChatScreen from './Screens/ChatScreen';
-/* import POIScreen from './Screens/POIScreen'; */
+import POIScreen from './Screens/POIScreen'; 
 //Import des modules de navigation & icônes
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -14,16 +14,17 @@ import { Ionicons } from '@expo/vector-icons';
 
 //Import du reducer et création du store
 import pseudo from './reducers/pseudo.reducer';
+import POIList from './reducers/POI.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
 
-const store = createStore(combineReducers({pseudo}));
+const store = createStore(combineReducers({pseudo, POIList}));
 
 //Mise en place de la nav
 //Menu bottom
 const BottomNavigator = createBottomTabNavigator({
   Map: MapScreen,
-  /* POI: POIScreen, */
+  POI: POIScreen, 
   Chat: ChatScreen
  },
  {
@@ -34,8 +35,8 @@ const BottomNavigator = createBottomTabNavigator({
         case 'Map' :
             iconName = 'ios-navigate'; //Icône map
             break;
-        /* case 'POI' :
-            iconName = 'ios-bowtie'; //Icône POI */
+        case 'POI' :
+            iconName = 'ios-bowtie'; //Icône POI 
         case 'Chat' :
             iconName = 'ios-chatboxes'; //Icône chat
             break;
