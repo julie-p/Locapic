@@ -1,3 +1,3 @@
 # Locapic
 
-Mobile app with React Native, geolocalisation and tchat
+Mobile app with React Native, geolocation and tchat
