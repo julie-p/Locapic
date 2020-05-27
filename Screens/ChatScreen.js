@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 //Import du module client SocketIo
 import socketIOClient from "socket.io-client";
 
-var socket = socketIOClient("http://192.168.1.16:3000");
+var socket = socketIOClient("http://192.***.1.**:3000");
 
 //Import de redux
 import {connect} from 'react-redux';
