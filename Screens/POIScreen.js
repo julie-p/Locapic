@@ -66,7 +66,7 @@ function mapDispatchToProps(dispatch) {
             dispatch( {type: 'deletePOI', POITitle: POITitle} )
         }
     }
-}
+};
 
 export default connect(
     mapStateToProps, 
